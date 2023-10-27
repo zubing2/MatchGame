@@ -12,9 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Match Game</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" async></script>
   </head>
-  <body>
+  <body onload="createBoard();">
     <div class="hero">
       <h1>Match Game</h1>
       <p id="maintxt">
@@ -23,29 +22,13 @@
         those images will be revealed, but watch out! The computer is keeping
         track of the number of times you click and judging your every move.
       </p>
-      <div class="container">
-        <button>1</button>
-        <button>1</button>
-        <button>2</button>
-        <button>2</button>
-        <button>3</button>
-        <button>3</button>
-        <button>4</button>
-        <button>4</button>
-        <button>5</button>
-        <button>5</button>
-        <button>6</button>
-        <button>6</button>
-        <button>7</button>
-        <button>7</button>
-        <button>8</button>
-        <button>8</button>
-      </div>
+      <div class="container"></div>
       <div id="bottom">
         <p>Score:</p>
-        <button id="reset">Reset</button>
+        <button id="reset" onClick="reset();">Reset</button>
         <p>Comments based on score</p>
       </div>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>
