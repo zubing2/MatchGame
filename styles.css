@@ -14,8 +14,10 @@
   grid-template-rows: repeat(4, 175px);
   justify-content: center;
   background-color: #ff6700;
-  margin: 50px auto;
+  display: center;
+  background-size: 500px 500px;
 }
+
 #bottom {
   padding: 0;
 }
@@ -26,11 +28,42 @@
   color: white;
   border-color: #ff9c38;
 }
-#maintxt {
-  font-size: 18px;
-}
 .tile {
   background-color: #ff9c38;
   font-size: 60px;
   line-height: 175px;
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .container {
+    grid-template-columns: repeat(4, 125px);
+    grid-template-rows: repeat(4, 125px);
+  }
+  .tile {
+    font-size: 50px;
+    line-height: 125px;
+  }
+  h1 {
+    font-size: 30px;
+  }
+  p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    grid-template-columns: repeat(4, 75px);
+    grid-template-rows: repeat(4, 75px);
+  }
+  .tile {
+    font-size: 30px;
+    line-height: 75px;
+  }
+  h1 {
+    font-size: 20px;
+  }
+  p {
+    font-size: 14px;
+  }
 }
