@@ -56,6 +56,7 @@ function createBoard() {
           revealedAmount += 2;
           if (revealedAmount == 16) {
             console.log("Game Won!");
+            generateComment();
           }
           return;
         }
@@ -66,6 +67,9 @@ function createBoard() {
   }
 }
 function reset() {
+  score = 0;
+  document.getElementById("score").innerHTML = `Score: 0`;
+  document.getElementById("comment").innerHTML = "";
   emojis = [
     "🎃",
     "🍁",
@@ -93,4 +97,16 @@ function reset() {
   }
   createBoard();
 }
-function generateComment() {}
+function generateComment() {
+  let comment;
+  if (score < 40) {
+    comment = "Well, you're doing fine, I guess. It's not rocket science.";
+  }
+  if (score < 30) {
+    comment = "You're making progress, keep going! You've got this!";
+  }
+  if (score < 20) {
+    comment = "Impressive! Your talent knows no bounds. You're on fire!";
+  }
+  document.getElementById("comment").innerHTML = comment;
+}
