@@ -1,4 +1,3 @@
-//Wei Work
 let score = 0;
 let revealedAmount = 0;
 let activeTile;
@@ -29,27 +28,37 @@ function createBoard() {
     tile.className = "tile";
     tile.innerHTML = emojis[num];
     tile.onclick = function () {
-      if (tile.classList != "matched") {
+      tile.classList.add("clicked");
+      score++;
+      document.getElementById("score").innerHTML = `Score: ${score}`;
+      if (!tile.classList.contains("matched")) {
         if (activeTile == null) {
           console.log("clicked active tile");
           activeTile = tile;
           return;
         }
-      }
-      if (activeTile.innerHTML != tile.innerHTML) {
-        console.log("clicked but not matched");
-        activeTile = null;
-      }
-      if (activeTile.innerHTML == tile.innerHTML) {
-        activeTile.classList.add("matched");
-        activeTile.classList.add("matched");
-        activeTile = null;
-        console.log("clicked and matched");
-        revealedAmount += 2;
-        if (revealedAmount == 16) {
-          return "Game Won!";
+        if (activeTile === tile) {
+          return;
         }
-        return;
+        if (activeTile.innerHTML != tile.innerHTML) {
+          console.log("clicked but not matched");
+          setTimeout(function () {
+            activeTile.classList.remove("clicked");
+            tile.classList.remove("clicked");
+            activeTile = null;
+          }, 500);
+        }
+        if (activeTile.innerHTML == tile.innerHTML) {
+          activeTile.classList.add("matched");
+          tile.classList.add("matched");
+          activeTile = null;
+          console.log("clicked and matched");
+          revealedAmount += 2;
+          if (revealedAmount == 16) {
+            console.log("Game Won!");
+          }
+          return;
+        }
       }
     };
     document.querySelector(".container").appendChild(tile);
