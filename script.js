@@ -1,6 +1,7 @@
 let score = 0;
 let revealedAmount = 0;
 let activeTile;
+let isLocked = false;
 let emojis = [
   "🎃",
   "🍁",
@@ -28,12 +29,16 @@ function createBoard() {
     tile.className = "tile";
     tile.innerHTML = emojis[num];
     tile.onclick = function () {
+      if (isLocked) {
+        return;
+      }
       tile.classList.add("clicked");
-      score++;
       document.getElementById("score").innerHTML = `Score: ${score}`;
       if (!tile.classList.contains("matched")) {
         if (activeTile == null) {
           console.log("clicked active tile");
+          // Changed so score increases every time a pair is attempted rather than everytime a tile is clicked.
+          score++;
           activeTile = tile;
           return;
         }
@@ -42,10 +47,12 @@ function createBoard() {
         }
         if (activeTile.innerHTML != tile.innerHTML) {
           console.log("clicked but not matched");
+          isLocked = true;
           setTimeout(function () {
             activeTile.classList.remove("clicked");
             tile.classList.remove("clicked");
             activeTile = null;
+            isLocked = false;
           }, 500);
         }
         if (activeTile.innerHTML == tile.innerHTML) {
@@ -66,47 +73,20 @@ function createBoard() {
     tempArray.splice(num, 1);
   }
 }
+// Refresh the page with the reset button b/c comment doesn't show up unless page is refreshed after reset button was clicked before.
 function reset() {
-  score = 0;
-  document.getElementById("score").innerHTML = `Score: 0`;
-  document.getElementById("comment").innerHTML = "";
-  emojis = [
-    "🎃",
-    "🍁",
-    "🍂",
-    "🥧",
-    "🦃",
-    "🌽",
-    "👻",
-    "🦇",
-    "🎃",
-    "🍁",
-    "🍂",
-    "🥧",
-    "🦃",
-    "🌽",
-    "👻",
-    "🦇",
-  ];
-
-  /* Found here: https://www.tutorialspoint.com/How-can-I-remove-all-child-elements-of-a-DOM-node-in-JavaScript*/
-  while (document.querySelector(".container").hasChildNodes()) {
-    document
-      .querySelector(".container")
-      .removeChild(document.querySelector(".container").firstChild);
-  }
-  createBoard();
+  location.reload();
 }
 function generateComment() {
-  let comment;
-  if (score < 40) {
-    comment = "Well, you're doing fine, I guess. It's not rocket science.";
-  }
+  let comment = "Well, you did fine, I guess. It's not rocket science.";
   if (score < 30) {
-    comment = "You're making progress, keep going! You've got this!";
+    comment = "That was fantastic, but you can do even better!";
   }
   if (score < 20) {
-    comment = "Impressive! Your talent knows no bounds. You're on fire!";
+    comment = "Impressive job! Your talent knows no bounds. You were on fire!";
+  }
+  if ((score = 16)) {
+    comment = "STOP CHEATING!!!!";
   }
   document.getElementById("comment").innerHTML = comment;
 }
